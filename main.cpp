@@ -17,7 +17,7 @@
  */
 int motorOne = 1;
 int motorTwo = 2;
-const fixedSpeed = 500;
+int fixedSpeed = 63;
 
 int main() {
 	printf("Program Started..");
