@@ -20,6 +20,7 @@ int motorTwo = 2;
 int fixedSpeed = 63;
 
 int main() {
+	Robot robot;
 	printf("Program Started..");
 	
 	init(1); // set to 1 for debug messages, 0 for final release.
@@ -28,7 +29,7 @@ int main() {
 		take_picture(); // this should call camera to take a ss.
 		 update_screen();
 		 // for(x pixel) decide which direction to move
-		forward(32);
+		robot.forward(32);
 		
 		}
 	
@@ -38,7 +39,7 @@ class Robot {
 	public :
 	void forward();
 
-}
+};
 
 void Robot :: forward(int speed){
 		// Motors are bound to pins, 1 and 2 should work ok to define
