@@ -15,7 +15,9 @@
  *  once we have this working it should move on quite a bit faster tbh.
  * 
  */
- 
+int motorOne = 1;
+int motorTwo = 2;
+
 
 int main() {
 	printf("Program Started..");
@@ -37,8 +39,8 @@ int main() {
 		// which motor to run
 		// speeds sould be <255
 		if(speed < 255){
-			set_motor(motorOne,fixedSpeed);
-			set_motor(motorTwo,fixedSpeed);
+			set_motors(motorOne,fixedSpeed);
+			set_motors(motorTwo,fixedSpeed);
 			update_hardware(); // should apply the new speed to motors? maybe wrong name
 			}
 		else{
