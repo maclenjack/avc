@@ -26,7 +26,7 @@ int main() {
 	
 	while(true){ // sets up a loop for the rest of our stuff to be in
 		take_picture(); // this should call camera to take a ss.
-		 
+		 update_screen();
 		 // for(x pixel) decide which direction to move
 		forward(32);
 		
