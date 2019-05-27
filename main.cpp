@@ -19,21 +19,7 @@ int motorOne = 1;
 int motorTwo = 2;
 int fixedSpeed = 63;
 
-int main() {
-	Robot robot;
-	printf("Program Started..");
-	
-	init(1); // set to 1 for debug messages, 0 for final release.
-	
-	while(true){ // sets up a loop for the rest of our stuff to be in
-		take_picture(); // this should call camera to take a ss.
-		 update_screen();
-		 // for(x pixel) decide which direction to move
-		robot.forward(32);
-		
-		}
-	
-	}
+
 	
 class Robot {
 	public :
@@ -54,5 +40,20 @@ void Robot :: forward(int speed){
 			printf("Robot Speed Should be under 255, stopping..");
 			}
 		}
+int main() {
+	Robot robot;
+	printf("Program Started..");
+	
+	init(1); // set to 1 for debug messages, 0 for final release.
+	
+	while(true){ // sets up a loop for the rest of our stuff to be in
+		take_picture(); // this should call camera to take a ss.
+		 update_screen();
+		 // for(x pixel) decide which direction to move
+		robot.forward(32);
+		
+		}
+	
+	}
 
 		
