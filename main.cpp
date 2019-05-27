@@ -41,7 +41,7 @@ int main() {
 		if(speed < 255){
 			set_motors(motorOne,fixedSpeed);
 			set_motors(motorTwo,fixedSpeed);
-			update_hardware(); // should apply the new speed to motors? maybe wrong name
+			//update_hardware(); // should apply the new speed to motors? maybe wrong name
 			}
 		else{
 			printf("Robot Speed Should be under 255, stopping..");
