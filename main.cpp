@@ -1,6 +1,6 @@
 # include <stdio.h>
 # include <time.h>
-
+# include "E101.h"
 /*
  *  Kinda two options for going about making this
  *  we can have the start hardcoded aka always move x distance, towards 
