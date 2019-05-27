@@ -27,7 +27,8 @@ int main() {
 	while(true){ // sets up a loop for the rest of our stuff to be in
 		take_picture(); // this should call camera to take a ss.
 		 
-		 // for ()
+		 // for(x pixel) decide which direction to move
+		forward(32);
 		
 		}
 	
@@ -41,7 +42,7 @@ int main() {
 		if(speed < 255){
 			set_motors(motorOne,fixedSpeed);
 			set_motors(motorTwo,fixedSpeed);
-			//update_hardware(); // should apply the new speed to motors? maybe wrong name
+			hardware_exchange(); // should apply the new speed to motors? maybe wrong name
 			}
 		else{
 			printf("Robot Speed Should be under 255, stopping..");
