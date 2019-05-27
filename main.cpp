@@ -16,7 +16,7 @@
  * 
  */
 int motorOne = 1;
-int motorTwo = 2;
+int motorTwo = 5;
 int fixedSpeed = 63;
 
 
@@ -50,7 +50,7 @@ int main() {
 		take_picture(); // this should call camera to take a ss.
 		 update_screen();
 		 // for(x pixel) decide which direction to move
-		robot.forward(32);
+		robot.forward(65);
 		
 		}
 	
