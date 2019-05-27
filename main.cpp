@@ -35,17 +35,5 @@ int main() {
 	}
 	
 	
-	void forward(int speed){
-		// Motors are bound to pins, 1 and 2 should work ok to define
-		// which motor to run
-		// speeds sould be <255
-		if(speed < 255){
-			set_motors(motorOne,fixedSpeed);
-			set_motors(motorTwo,fixedSpeed);
-			hardware_exchange(); // should apply the new speed to motors? maybe wrong name
-			}
-		else{
-			printf("Robot Speed Should be under 255, stopping..");
-			}
-		}
+
 		
