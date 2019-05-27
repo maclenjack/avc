@@ -23,7 +23,7 @@ int fixedSpeed = 63;
 	
 class Robot {
 	public :
-	void forward();
+	void forward(int speed);
 
 };
 
@@ -32,8 +32,8 @@ void Robot :: forward(int speed){
 		// which motor to run
 		// speeds sould be <255
 		if(speed < 255){
-			set_motors(motorOne,fixedSpeed);
-			set_motors(motorTwo,fixedSpeed);
+			set_motors(motorOne,speed);
+			set_motors(motorTwo,speed);
 			hardware_exchange(); // should apply the new speed to motors? maybe wrong name
 			}
 		else{
