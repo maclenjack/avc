@@ -40,6 +40,21 @@ void Robot :: forward(int speed){
 			printf("Robot Speed Should be under 255, stopping..");
 			}
 		}
+
+void Robot :: measureLine(){
+	int[] line = new int[cam_width];
+    	double offCentre = 0; //made offCentre into double
+   	int threshold = 50; //arbitrary value, need to test what the threshold is
+	    for (int i = 0; i < cam_width - 1; i++) { //changed to cam_width - 1
+		if (get_pixel (cam_height/2, i, 3) > threshold) { //changed to cam_height/2
+		    line[i] = 1;
+		}
+		else {line[i] = 0}
+		offCentre += line[i] * (i - ((double) ((cam_width - 1) / 2))); //changed to cam_width - 1
+	    }
+	    return offCentre;
+}
+
 int main() {
 	Robot robot;
 	printf("Program Started..");
@@ -48,8 +63,9 @@ int main() {
 	
 	while(true){ // sets up a loop for the rest of our stuff to be in
 		take_picture(); // this should call camera to take a ss.
-		 update_screen();
-		 // for(x pixel) decide which direction to move
+		update_screen();
+		
+		// for(x pixel) decide which direction to move
 		robot.forward(65);
 		
 		}
