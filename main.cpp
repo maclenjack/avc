@@ -45,6 +45,7 @@ public:
     void SetMotors ();
     int MeasureLine ();
     int FollowLine ();
+    void goForward();
     //int forward(int speed);
 };
 
@@ -140,7 +141,7 @@ int main() {
 	send_to_server(message);// literally a ping pong
 	
 	robot.goForward();
-	sleep(2000;)
+	sleep1(2000);
 	
 	
 	while(true){ // sets up a loop for the rest of our stuff to be in
