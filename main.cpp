@@ -67,6 +67,12 @@ void Robot::SetMotors () {
     hardware_exchange();
 }
 
+void Robot::goForward () {
+    set_motors (1, 63);
+    set_motors (5, 43);
+    hardware_exchange();
+}
+
 int Robot :: MeasureLine(){
 	int line [cam_width] = {};
 	    int offCentre = 0;
@@ -132,6 +138,10 @@ int main() {
 	send_to_server(message);
 	receive_from_server(message);
 	send_to_server(message);// literally a ping pong
+	
+	robot.goForward();
+	sleep(2000;)
+	
 	
 	while(true){ // sets up a loop for the rest of our stuff to be in
 		take_picture(); // this should call camera to take a ss.
