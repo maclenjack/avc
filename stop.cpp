@@ -19,8 +19,6 @@ int motorOne = 1;
 int motorTwo = 5;
 int fixedSpeed = 63;
 
-
-	
 class Robot {  
 private:
     int v_left, v_right, cam_tilt;
@@ -42,14 +40,16 @@ private:
     double kd = 0.001;
     bool line_present = true;
 public:
-    Rob () {};    //default constructor
+    //Rob () {};    //default constructor
     int InitHardware ();
     void SetMotors ();
     int MeasureLine ();
     int FollowLine ();
+    void goForward();
+    //int forward(int speed);
 };
 
-void Robot :: forward(int speed){
+/*int Robot :: forward(int speed){
 		// Motors are bound to pins, 1 and 2 should work ok to define
 		// which motor to run
 		// speeds sould be <255
@@ -61,10 +61,21 @@ void Robot :: forward(int speed){
 		else{
 			printf("Robot Speed Should be under 255, stopping..");
 			}
-		}
+		}*/
+void Robot::SetMotors () {
+    set_motors (1, v_right);
+    set_motors (5, v_left);
+    hardware_exchange();
+}
 
-void Robot :: measureLine(){
-	int[] line = new int[cam_width];
+void Robot::goForward () {
+    set_motors (1, 63);
+    set_motors (5, 43);
+    hardware_exchange();
+}
+
+int Robot :: MeasureLine(){
+	int line [cam_width] = {};
 	    int offCentre = 0;
 	    float whiteness = 0;
 	    line_present = false;
@@ -83,7 +94,7 @@ void Robot :: measureLine(){
 	    clock_gettime (CLOCK_MONOTONIC, &ts_end);
 	    return offCentre;
 }
-Robot::FollowLine () {
+int Robot::FollowLine () {
     MeasureLine ();
     if (line_present) {
         dv = (int) (line_error * kp);
@@ -102,16 +113,17 @@ Robot::FollowLine () {
             v_right = 65;
         }
         previous_line_error = line_error;
-        cout << " line_error = " << line_error << " dv= " << dv;
+        //cout << " line_error = " << line_error << " dv= " << dv;
         SetMotors ();
     }
     else {
         // go back
-        cout << " Line missing " << endl;
+        //cout << " Line missing " << endl;
         v_left = 39;
         v_right = 55;
         SetMotors ();
         sleep1 (100);
+    }
 }
 
 int main() {
@@ -119,8 +131,27 @@ int main() {
 	printf("Program Started..");
 	
 	init(1); // set to 1 for debug messages, 0 for final release.
+	open_screen_stream();
 	
-  robot.forward(48);
+	char ip[24] = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
+    	connect_to_server(ip,1024);
+	char message[24] = {'P','l','e','a','s','e'};
+	send_to_server(message);
+	receive_from_server(message);
+	send_to_server(message);// literally a ping pong
+	
+	//robot.goForward();
+	sleep1(2000);
+	
+	
+	while(true){ // sets up a loop for the rest of our stuff to be in
+		take_picture(); // this should call camera to take a ss.
+		update_screen();
+		//robot.FollowLine();
+		
+		// for(x pixel) decide which direction to move
+		
+		}
 	
 	}
 
