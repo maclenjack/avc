@@ -70,7 +70,7 @@ void Robot::SetMotors () {
 
 void Robot::goForward () {
     set_motors (1, 43);
-    set_motors (5, 53); //63
+    set_motors (5, 52); //63
     hardware_exchange();
 }
 
