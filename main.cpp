@@ -44,7 +44,7 @@ private:
 public:
     //Rob () {};    //default constructor
     int InitHardware ();
-    void SetMotors ();
+    //void SetMotors ();
     int MeasureLine ();
     int FollowLine ();
     int forward(int speed);
