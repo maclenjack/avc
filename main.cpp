@@ -113,6 +113,7 @@ int Robot::FollowLine () {
         v_right = 55;
         SetMotors ();
         sleep1 (100);
+    }
 }
 
 int main() {
