@@ -70,7 +70,7 @@ void Robot::SetMotors () {
 
 void Robot::goForward () {
     set_motors (1, 43);
-    set_motors (5, 52); //63
+    set_motors (5, 63);
     hardware_exchange();
 }
 
@@ -95,35 +95,39 @@ int Robot :: MeasureLine(){
 	    return offCentre;
 }
 int Robot::FollowLine () {
-    MeasureLine ();
-    if (line_present) {
-        dv = (int) (line_error * kp);
-        de = (int)(line_error - previous_line_error);
-        dt = (ts_end.tv_sec - ts_start.tv_sec) * 1000000000 +
-            ts_end.tv_nsec - ts_start.tv_nsec;
-        error = dv + (kd * (de/dt));
-        v_left = v_left_go + error;
-        v_right = v_right_go + error;
-        if (v_left > 65) {
-            v_left = 65;
-            v_right = 30;
-        }
-        else if (v_left < 30) {
-            v_left = 30;
-            v_right = 65;
-        }
-        previous_line_error = line_error;
-        //cout << " line_error = " << line_error << " dv= " << dv;
-        SetMotors ();
-    }
-    else {
-        // go back
-        //cout << " Line missing " << endl;
-        v_left = 39;
-        v_right = 55;
-        SetMotors ();
-        sleep1 (100);
-    }
+	MeasureLine ();
+	if (line_present) {
+		dv = (int) (line_error * kp);
+		de = (int)(line_error - previous_line_error);
+		dt = (ts_end.tv_sec - ts_start.tv_sec) * 1000000000 +
+		    ts_end.tv_nsec - ts_start.tv_nsec;
+		error = dv + (kd * (de/dt));
+		v_left = v_left_go + error;
+		v_right = v_right_go + error;
+		if (v_left > 65) {
+			v_left = 65;
+		}
+		else if (v_left < 30) {
+			v_left = 30;
+		}
+		if (v_right > 65) {
+			v_right = 65;
+		}
+		else if (v_right < 30) {
+			v_right = 30;
+		}
+		previous_line_error = line_error;
+		//cout << " line_error = " << line_error << " dv= " << dv;
+		SetMotors ();
+	}
+	else {
+		// go back
+		//cout << " Line missing " << endl;
+		v_left = 39;
+		v_right = 55;
+		SetMotors ();
+		sleep1 (100);
+	}
 }
 
 int main() {
