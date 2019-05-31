@@ -21,10 +21,32 @@ int fixedSpeed = 63;
 
 
 	
-class Robot {
-	public :
-	void forward(int speed);
-
+class Robot {  
+private:
+    int v_left, v_right, cam_tilt;
+    int dv;
+    int de;
+    long dt;
+    int error;
+    struct timespec ts_start;
+    struct timespec ts_end;
+    double line_error;
+    double previous_line_error;
+    double change_in_time;
+    int quadrant;
+    const int cam_width = 320;
+    const int cam_height = 240;
+    const int v_left_go = 52;
+    const int v_right_go = 44;
+    double kp = 0.001;
+    double kd = 0.001;
+    bool line_present = true;
+public:
+    Rob () {};    //default constructor
+    int InitHardware ();
+    void SetMotors ();
+    int MeasureLine ();
+    int FollowLine ();
 };
 
 void Robot :: forward(int speed){
@@ -43,16 +65,53 @@ void Robot :: forward(int speed){
 
 void Robot :: measureLine(){
 	int[] line = new int[cam_width];
-    	double offCentre = 0; //made offCentre into double
-   	int threshold = 50; //arbitrary value, need to test what the threshold is
-	    for (int i = 0; i < cam_width - 1; i++) { //changed to cam_width - 1
-		if (get_pixel (cam_height/2, i, 3) > threshold) { //changed to cam_height/2
+	    int offCentre = 0;
+	    float whiteness = 0;
+	    line_present = false;
+	    for (int i = 0; i < cam_width; i++) {
+		whiteness += get_pixel (cam_height/2, i, 3);
+	    }
+	    whiteness /= cam_width;
+	    clock_gettime (CLOCK_MONOTONIC, &ts_start);
+	    for (int i = 0; i < cam_width; i++) {
+		if (get_pixel (cam_height/2, i, 3) > whiteness - 15) {
 		    line[i] = 1;
 		}
-		else {line[i] = 0}
-		offCentre += line[i] * (i - ((double) ((cam_width - 1) / 2))); //changed to cam_width - 1
+		else {line[i] = 0; line_present = true;}
+		offCentre += line[i] * (i - ((int) ((cam_width - 1) / 2)));
 	    }
+	    clock_gettime (CLOCK_MONOTONIC, &ts_end);
 	    return offCentre;
+}
+Robot::FollowLine () {
+    MeasureLine ();
+    if (line_present) {
+        dv = (int) (line_error * kp);
+        de = (int)(line_error - previous_line_error);
+        dt = (ts_end.tv_sec - ts_start.tv_sec) * 1000000000 +
+            ts_end.tv_nsec - ts_start.tv_nsec;
+        error = dv + (kd * (de/dt));
+        v_left = v_left_go + error;
+        v_right = v_right_go + error;
+        if (v_left > 65) {
+            v_left = 65;
+            v_right = 30;
+        }
+        else if (v_left < 30) {
+            v_left = 30;
+            v_right = 65;
+        }
+        previous_line_error = line_error;
+        cout << " line_error = " << line_error << " dv= " << dv;
+        SetMotors ();
+    }
+    else {
+        // go back
+        cout << " Line missing " << endl;
+        v_left = 39;
+        v_right = 55;
+        SetMotors ();
+        sleep1 (100);
 }
 
 int main() {
