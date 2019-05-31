@@ -65,7 +65,7 @@ int Robot :: forward(int speed){
 		}
 
 int Robot :: MeasureLine(){
-	int[] line = new int[cam_width];
+	int line [cam_width] = {};
 	    int offCentre = 0;
 	    float whiteness = 0;
 	    line_present = false;
@@ -103,12 +103,12 @@ int Robot::FollowLine () {
             v_right = 65;
         }
         previous_line_error = line_error;
-        cout << " line_error = " << line_error << " dv= " << dv;
+        //cout << " line_error = " << line_error << " dv= " << dv;
         SetMotors ();
     }
     else {
         // go back
-        cout << " Line missing " << endl;
+        //cout << " Line missing " << endl;
         v_left = 39;
         v_right = 55;
         SetMotors ();
