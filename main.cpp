@@ -47,9 +47,10 @@ public:
     void SetMotors ();
     int MeasureLine ();
     int FollowLine ();
+    int forward(int speed);
 };
 
-void Robot :: forward(int speed){
+int Robot :: forward(int speed){
 		// Motors are bound to pins, 1 and 2 should work ok to define
 		// which motor to run
 		// speeds sould be <255
@@ -63,7 +64,7 @@ void Robot :: forward(int speed){
 			}
 		}
 
-void Robot :: measureLine(){
+int Robot :: MeasureLine(){
 	int[] line = new int[cam_width];
 	    int offCentre = 0;
 	    float whiteness = 0;
@@ -83,7 +84,7 @@ void Robot :: measureLine(){
 	    clock_gettime (CLOCK_MONOTONIC, &ts_end);
 	    return offCentre;
 }
-Robot::FollowLine () {
+int Robot::FollowLine () {
     MeasureLine ();
     if (line_present) {
         dv = (int) (line_error * kp);
