@@ -42,7 +42,7 @@ private:
     double kd = 0.001;
     bool line_present = true;
 public:
-    Rob () {};    //default constructor
+    //Rob () {};    //default constructor
     int InitHardware ();
     void SetMotors ();
     int MeasureLine ();
