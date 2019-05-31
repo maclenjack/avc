@@ -19,13 +19,6 @@ int motorOne = 1;
 int motorTwo = 5;
 int fixedSpeed = 63;
 
-extern "C" int init(int d_lev);
-extern "C" int connect_to_server( char server_addr[15],int port);
-extern "C" int send_to_server(char message[24]);
-extern "C" int receive_from_server(char message[24]);
-
-
-	
 class Robot {  
 private:
     int v_left, v_right, cam_tilt;
@@ -133,11 +126,12 @@ int main() {
 	init(1); // set to 1 for debug messages, 0 for final release.
 	open_screen_stream();
 	
-	char ip = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
+	char ip[24] = {'1','3','0','.','1','9','5','.','6','.','1','9','6'};
     	connect_to_server(ip,1024);
-	send_to_server("Please"); // can send anything to activate server? array?
-	receive_from_server(password);
-	send_to_server(password);// literally a ping pong
+	char message[24] = {'P','l','e','a','s','e'};
+	send_to_server(message);
+	receive_from_server(message);
+	send_to_server(message);// literally a ping pong
 	
 	while(true){ // sets up a loop for the rest of our stuff to be in
 		take_picture(); // this should call camera to take a ss.
