@@ -69,8 +69,8 @@ void Robot::SetMotors () {
 }
 
 void Robot::goForward () {
-    set_motors (1, 63);
-    set_motors (5, 43);
+    set_motors (1, 48);
+    set_motors (5, 48);
     hardware_exchange();
 }
 
@@ -140,7 +140,7 @@ int main() {
 	receive_from_server(message);
 	send_to_server(message);// literally a ping pong
 	
-	//robot.goForward();
+	robot.goForward();
 	sleep1(2000);
 	
 	
