@@ -44,13 +44,13 @@ private:
 public:
     //Rob () {};    //default constructor
     int InitHardware ();
-    //void SetMotors ();
+    void SetMotors ();
     int MeasureLine ();
     int FollowLine ();
-    int forward(int speed);
+    //int forward(int speed);
 };
 
-int Robot :: forward(int speed){
+/*int Robot :: forward(int speed){
 		// Motors are bound to pins, 1 and 2 should work ok to define
 		// which motor to run
 		// speeds sould be <255
@@ -62,7 +62,12 @@ int Robot :: forward(int speed){
 		else{
 			printf("Robot Speed Should be under 255, stopping..");
 			}
-		}
+		}*/
+void Robot::SetMotors () {
+    set_motors (1, v_right);
+    set_motors (5, v_left);
+    hardware_exchange();
+}
 
 int Robot :: MeasureLine(){
 	int line [cam_width] = {};
